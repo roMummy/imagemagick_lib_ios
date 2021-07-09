@@ -1,0 +1,14 @@
+prefix=/Users/fskj/Desktop/imagemagick_lib_iphone-master/target/imagemagick
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include/ImageMagick-7
+includearchdir=/Users/fskj/Desktop/imagemagick_lib_iphone-master/target/imagemagick/include/ImageMagick-7
+libname=MagickCore-7.Q8HDRI
+ 
+Name: ImageMagick
+Description: ImageMagick - convert, edit, and compose images (ABI Q8HDRI)
+URL: https://github.com/ImageMagick
+Version: 7.1.0
+Cflags:  -I${includearchdir} -I${includedir} -DMAGICKCORE_HDRI_ENABLE=1 -DMAGICKCORE_QUANTUM_DEPTH=8
+Libs: -L${libdir} -l${libname}
+Libs.private: -L${libdir} -l${libname}     -L/Users/fskj/Desktop/imagemagick_lib_iphone-master/target/libfreetype_armv7/lib -lfreetype  -ljpeg    -L/Users/fskj/Desktop/imagemagick_lib_iphone-master/target/libpng_armv7/lib -lpng16 -lz      -L/Users/fskj/Desktop/imagemagick_lib_iphone-master/target/libfreetype_armv7/lib -L/Users/fskj/Desktop/imagemagick_lib_iphone-master/target/fontconfig_armv7/lib -lfontconfig -lfreetype                 -lxml2  -lz     -lm    -lpthread   -lm
