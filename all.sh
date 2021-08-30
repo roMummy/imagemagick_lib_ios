@@ -19,9 +19,9 @@ export IM_VERSION="$1"
 #. $(dirname $0)/compile_freetype.sh
 #. $(dirname $0)/compile_fontconfig.sh
 #. $(dirname $0)/compile_expat.sh #
-. $(dirname $0)/compile_im.sh   # ImageMagick
 #. $(dirname $0)/compile_gs.sh   #
 #. $(dirname $0)/compile_openjpeg.sh #
+. $(dirname $0)/compile_im.sh   # ImageMagick
 
 
 

@@ -55,8 +55,12 @@ fontconfig () {
 		intelflags $1
         echo "2"
 		echo "[|- CONFIG $BUILDINGFOR]"
-		export CC="$(xcode-select -print-path)/usr/bin/gcc" # override clang
-		try ./configure prefix=$fontconfig_LIB_DIR --enable-shared --enable-static --host=${BUILDINGFOR}-apple-darwin
+		try ./configure \
+        --prefix=${FONTCONFIG_LIB_DIR}_${BUILDINGFOR} \
+        --enable-shared \
+        --enable-static \
+        --host=${BUILDINGFOR}-apple-darwin
+        
 		fontconfig_compile
 		restore
 	else

@@ -5,13 +5,17 @@ jpeg_compile() {
 	try make -j$CORESNUM
 	try make install
 	echo "[|- CP STATIC/DYLIB $BUILDINGFOR]"
-	try cp $JPEG_LIB_DIR/lib/$LIBPATH_jpeg $LIB_DIR/$LIBNAME_jpeg.$BUILDINGFOR
-	try cp $JPEG_LIB_DIR/lib/libjpeg.dylib $LIB_DIR/jpeg_${BUILDINGFOR}_dylib/libjpeg.dylib
+        
+    mkdir -p $LIB_DIR/jpeg_${BUILDINGFOR}_dylib
+    mkdir -p ${JPEG_LIB_DIR}_${BUILDINGFOR}/
+    
+	try cp ${JPEG_LIB_DIR}_${BUILDINGFOR}/lib/$LIBPATH_jpeg $LIB_DIR/$LIBNAME_jpeg.$BUILDINGFOR
+	try cp ${JPEG_LIB_DIR}_${BUILDINGFOR}/lib/libjpeg.9.dylib $LIB_DIR/jpeg_${BUILDINGFOR}_dylib/libjpeg.dylib
 	first=`echo $ARCHS | awk '{print $1;}'`
 	if [ "$BUILDINGFOR" == "$first" ]; then
 		echo "[|- CP include files (arch ref: $first)]"
 		# copy the include files
-		try cp -r $JPEG_LIB_DIR/include/ $LIB_DIR/include/jpeg/
+		try cp -r ${JPEG_LIB_DIR}_${BUILDINGFOR}/include/ $LIB_DIR/include/jpeg/
 	fi
 	echo "[|- CLEAN $BUILDINGFOR]"
 	try make distclean
@@ -28,14 +32,15 @@ jpeg () {
 		save
 		armflags $1
 		echo "[|- CONFIG $BUILDINGFOR]"
-		try sh ./configure prefix=$JPEG_LIB_DIR --enable-shared --enable-static --host=arm-apple-darwin
+		try sh ./configure prefix=${JPEG_LIB_DIR}_${BUILDINGFOR} --enable-shared --enable-static --host=arm-apple-darwin
 		jpeg_compile
 		restore
 	elif [ "$1" == "i386" ] || [ "$1" == "x86_64" ]; then
 		save
 		intelflags $1
+        export CC="$(xcode-select -print-path)/usr/bin/gcc"
 		echo "[|- CONFIG $BUILDINGFOR]"
-		try ./configure prefix=$JPEG_LIB_DIR --enable-shared --enable-static --host=${BUILDINGFOR}-apple-darwin
+		try ./configure prefix=${JPEG_LIB_DIR}_${BUILDINGFOR} --enable-shared --enable-static --host=${BUILDINGFOR}-apple-darwin
 		jpeg_compile
 		restore
 	else
