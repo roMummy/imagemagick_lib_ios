@@ -41,7 +41,8 @@ intelflags () {
 	export INTEL_CFLAGS="$INTEL_CFLAGS -I$SIMSDKROOT/usr/include"
 	
 	# apply INTEL_CC values
-	export CC="$INTEL_CC"
+    export CC="$(xcode-select -print-path)/usr/bin/gcc"
+#	export CC="$INTEL_CC"
 	export CCP="$INTEL_CC -E"
 	export CFLAGS="$INTEL_CFLAGS"
 	export LD="$INTEL_LD"

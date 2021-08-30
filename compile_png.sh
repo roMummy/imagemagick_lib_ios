@@ -49,7 +49,7 @@ png () {
         echo "2"
 		echo "[|- CONFIG $BUILDINGFOR]"
 		export CC="$(xcode-select -print-path)/usr/bin/gcc" # override clang
-		try ./configure prefix=$PNG_LIB_DIR --enable-shared --enable-static --host=${BUILDINGFOR}-apple-darwin
+		try ./configure prefix=${PNG_LIB_DIR}_${BUILDINGFOR} --enable-shared --enable-static --host=${BUILDINGFOR}-apple-darwin
 		png_compile
 		restore
 	else

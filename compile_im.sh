@@ -10,8 +10,8 @@ im_compile() {
 	cp $LIBPATH_magickpp $LIB_DIR/$LIBNAME_magickpp.$BUILDINGFOR
 	if [ "$BUILDINGFOR" == "arm64" ]; then  # copy include and config files
 		# copy the wand/ + core/ headers
-		cp -r $IM_LIB_DIR/include/ImageMagick-*/MagickCore/ $LIB_DIR/include/magick/
-		cp -r $IM_LIB_DIR/include/ImageMagick-*/MagickWand/ $LIB_DIR/include/wand/
+		cp -r $IM_LIB_DIR/include/ImageMagick-*/MagickCore/ $LIB_DIR/include/MagickCore/
+		cp -r $IM_LIB_DIR/include/ImageMagick-*/MagickWand/ $LIB_DIR/include/MagickWand/
 		cp -r $IM_LIB_DIR/include/ImageMagick-*/magick++/ $LIB_DIR/include/magick++/
 		cp -r $IM_LIB_DIR/include/ImageMagick-*/Magick++.h $LIB_DIR/include/Magick++.h
 
@@ -78,24 +78,29 @@ im () {
 	elif [ "$1" == "i386" ] || [ "$1" == "x86_64" ]; then
         echo "x86"
 		save
-		intelflags $1
-		export CPPFLAGS="$CPPFLAGS -I$LIB_DIR/include/jpeg -I$LIB_DIR/include/png -I$LIB_DIR/include/tiff -I$LIB_DIR/include/webp -I$LIB_DIR/include/raw/ -I$SIMSDKROOT/usr/include"
-		export LDFLAGS="$LDFLAGS -L$LIB_DIR/jpeg_${BUILDINGFOR}_dylib/ -L$LIB_DIR/png_${BUILDINGFOR}_dylib/ -L$LIB_DIR/tiff_${BUILDINGFOR}_dylib/ -L$LIB_DIR/webp_${BUILDINGFOR}_dylib/ -L$LIB_DIR/raw_${BUILDINGFOR}_dylib/ -L$LIB_DIR"
+        intelflags $1
+        export CC="clang"
+        export CPPFLAGS="-I$LIB_DIR/include/jpeg -I$LIB_DIR/include/png  -I$LIB_DIR/include/webp -I$LIB_DIR/include/raw -I$IM_LIB_DIR/include/ImageMagick-7 -I$LIB_DIR/include/fontconfig"
+        export LDFLAGS="$LDFLAGS -L$LIB_DIR/jpeg_${BUILDINGFOR}_dylib/ -L${LIB_DIR}/png_${BUILDINGFOR}_dylib/   -L$LIB_DIR/webp_${BUILDINGFOR}_dylib/ -L$LIB_DIR/raw_${BUILDINGFOR}_dylib/ -L$LIB_DIR/fontconfig_${BUILDINGFOR}_dylib/  -L$LIB_DIR "
 		echo "[|- CONFIG $BUILDINGFOR]"
 		try ./configure prefix=$IM_LIB_DIR \
             --disable-opencl \
-			--disable-largefile \
+            --disable-largefile \
             --with-quantum-depth=8 \
             --with-magick-plus-plus \
-            --with-freetype \
             --with-png \
+            --with-freetype \
+            --with-fontconfig \
             --without-perl \
             --without-x \
-			--disable-shared \
+            --disable-shared \
             --disable-openmp \
             --without-bzlib \
-            --without-threads \
-            --disable-dependency-tracking \
+            --without-openexr \
+            --without-lcms \
+            --without-webp \
+            --without-lzma \
+            --without-openjp2
             --host=${BUILDINGFOR}-apple-darwin
             
 		im_compile
