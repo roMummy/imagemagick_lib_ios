@@ -63,7 +63,24 @@ freetype () {
         echo "2"
 		echo "[|- CONFIG $BUILDINGFOR]"
 		export CC="$(xcode-select -print-path)/usr/bin/gcc" # override clang
-		try ./configure prefix=${FREETYPE_LIB_DIR}_${BUILDINGFOR} --enable-shared --enable-static --host=${BUILDINGFOR}-apple-darwin
+		
+        try ./configure \
+        prefix=${FREETYPE_LIB_DIR}_${BUILDINGFOR} \
+        --with-pic \
+        --with-zlib \
+        --with-png \
+        --without-harfbuzz \
+        --without-bzip2 \
+        --without-fsref \
+        --without-quickdraw-toolbox \
+        --without-quickdraw-carbon \
+        --without-ats \
+        --enable-static \
+        --enable-shared \
+        --disable-fast-install \
+        --disable-mmap \
+        --host=${BUILDINGFOR}-apple-darwin
+         
 		freetype_compile
 		restore
 	else
