@@ -4,6 +4,9 @@ imagemagick compile script.
 thank you by [marforic](https://github.com/marforic/imagemagick_lib_iphone).
 I changed the script, which is great for me.
 
+
+Architecture: `arm64`、`armv7`、`x86_64`
+
 If you can’t compile successfully, then I have compiled lib here, right here `IMPORT_ME`
 this is imagemagick info:
 
