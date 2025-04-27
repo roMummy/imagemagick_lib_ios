@@ -14,7 +14,7 @@ expat_compile() {
 	if [ "$BUILDINGFOR" == "$first" ]; then
 		echo "[|- CP include files (arch ref: $first)]"
 		# copy the include files
-		try cp -r ${expat_LIB_DIR}_${BUILDINGFOR}/include/expat*/ $LIB_DIR/include/expat/
+		try cp -r ${EXPAT_LIB_DIR}_${BUILDINGFOR}/include/expat* $LIB_DIR/include/expat/
 	fi
 	echo "[|- CLEAN $BUILDINGFOR]"
 	try make distclean
@@ -38,13 +38,16 @@ expat () {
         
 		try ./configure \
         --prefix=${EXPAT_LIB_DIR}_${BUILDINGFOR} \
-        --with-pic \
-        --without-docbook \
-        --without-xmlwf \
-        --enable-static \
-        --disable-shared \
-        --disable-fast-install \
-        --host=arm-apple-darwin
+		--enable-shared \
+		--enable-static \
+        --host=aarch64-apple-darwin
+        # --with-pic \
+        # --without-docbook \
+        # --without-xmlwf \
+        # --enable-static \
+        # --disable-shared \
+        # --disable-fast-install \
+        # --host=${BUILDINGFOR}-apple-darwin
 #        echo "111"
 		expat_compile
 		restore
@@ -54,7 +57,12 @@ expat () {
         echo "2"
 		echo "[|- CONFIG $BUILDINGFOR]"
 		export CC="$(xcode-select -print-path)/usr/bin/gcc" # override clang
-		try ./configure prefix=$expat_LIB_DIR --enable-shared --enable-static --host=${BUILDINGFOR}-apple-darwin
+		try ./configure \
+		--prefix=${EXPAT_LIB_DIR}_${BUILDINGFOR} \
+		--enable-shared \
+		--enable-static \
+		--host=${BUILDINGFOR}-apple-darwin
+
 		expat_compile
 		restore
 	else

@@ -53,7 +53,7 @@ freetype () {
         --enable-shared \
         --disable-fast-install \
         --disable-mmap \
-        --host=arm-apple-darwin
+        --host=${BUILDINGFOR}-apple-darwin
         
 		freetype_compile
 		restore
@@ -64,6 +64,9 @@ freetype () {
 		echo "[|- CONFIG $BUILDINGFOR]"
 		export CC="$(xcode-select -print-path)/usr/bin/gcc" # override clang
 		
+		# 添加PKG_CONFIG_PATH环境变量，指向本地编译的libpng库
+        export PKG_CONFIG_PATH="${PNG_LIB_DIR}_${BUILDINGFOR}/lib/pkgconfig/:$PKG_CONFIG_PATH"
+
         try ./configure \
         prefix=${FREETYPE_LIB_DIR}_${BUILDINGFOR} \
         --with-pic \

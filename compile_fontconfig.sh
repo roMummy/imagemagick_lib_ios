@@ -38,15 +38,18 @@ fontconfig () {
         
 		try ./configure \
         --prefix=${FONTCONFIG_LIB_DIR}_${BUILDINGFOR} \
-        --with-pic \
+		--enable-shared \
         --enable-static \
-        --disable-shared \
-        --disable-fast-install \
-        --disable-rpath \
-        --disable-libxml2 \
-        --disable-docs \
-        --disable-expat \
-        --host=arm-apple-darwin
+        --host=${BUILDINGFOR}-apple-darwin
+        # --with-pic \
+        # --enable-static \
+        # --disable-shared \
+        # --disable-fast-install \
+        # --disable-rpath \
+        # --disable-libxml2 \
+        # --disable-docs \
+        # --disable-expat \
+        # --host=arm-apple-darwin
 #        echo "111"
 		fontconfig_compile
 		restore
@@ -54,7 +57,17 @@ fontconfig () {
 		save
 		intelflags $1
         echo "2"
+		# 先清理一下
+		try make distclean
+		# 重新生成configure文件
+		autoreconf -f -i 
 		echo "[|- CONFIG $BUILDINGFOR]"
+		export CC="$(xcode-select -print-path)/usr/bin/gcc"
+		# 清除之前的PKG_CONFIG_PATH，然后设置新的路径
+		export PKG_CONFIG_PATH=""
+		export PKG_CONFIG_PATH="${FREETYPE_LIB_DIR}_${BUILDINGFOR}/lib/pkgconfig/:$PKG_CONFIG_PATH"
+		# 显式指定库路径，确保使用正确架构的库
+		export LDFLAGS="-L${FREETYPE_LIB_DIR}_${BUILDINGFOR}/lib -L${PNG_LIB_DIR}_${BUILDINGFOR}/lib"
 		try ./configure \
         --prefix=${FONTCONFIG_LIB_DIR}_${BUILDINGFOR} \
         --enable-shared \

@@ -1,8 +1,8 @@
-prefix=/Users/fskj/Desktop/imagemagick_lib_iphone-master/target/imagemagick
+prefix=/Users/macbookpro2022m2/Desktop/imagemagick_lib_ios/target/imagemagick_arm64
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include/ImageMagick-7
-includearchdir=/Users/fskj/Desktop/imagemagick_lib_iphone-master/target/imagemagick/include/ImageMagick-7
+includearchdir=/Users/macbookpro2022m2/Desktop/imagemagick_lib_ios/target/imagemagick_arm64/include/ImageMagick-7
 libname=MagickCore-7.Q8HDRI
  
 Name: ImageMagick
@@ -11,4 +11,4 @@ URL: https://github.com/ImageMagick
 Version: 7.1.0
 Cflags:  -I${includearchdir} -I${includedir} -DMAGICKCORE_HDRI_ENABLE=1 -DMAGICKCORE_QUANTUM_DEPTH=8
 Libs: -L${libdir} -l${libname}
-Libs.private: -L${libdir} -l${libname}     -L/Users/fskj/Desktop/imagemagick_lib_iphone-master/target/libfreetype_armv7/lib -lfreetype  -ljpeg    -L/Users/fskj/Desktop/imagemagick_lib_iphone-master/target/libpng_armv7/lib -lpng16 -lz      -L/Users/fskj/Desktop/imagemagick_lib_iphone-master/target/libfreetype_armv7/lib -L/Users/fskj/Desktop/imagemagick_lib_iphone-master/target/fontconfig_armv7/lib -lfontconfig -lfreetype                 -lxml2  -lz     -lm    -lpthread   -lm
+Libs.private: -L${libdir} -l${libname}     -L/Users/macbookpro2022m2/Desktop/imagemagick_lib_ios/target/libfreetype_arm64/lib -lfreetype  -ljpeg    -L/Users/macbookpro2022m2/Desktop/imagemagick_lib_ios/target/libpng_arm64/lib -lpng16 -L/usr/lib -lz      -L/Users/macbookpro2022m2/Desktop/imagemagick_lib_ios/target/fontconfig_arm64/lib -lfontconfig -L/Users/macbookpro2022m2/Desktop/imagemagick_lib_ios/target/libfreetype_arm64/lib -lfreetype  -L/Users/macbookpro2022m2/Desktop/imagemagick_lib_ios/target/libwebp_arm64/lib -lwebpmux -lwebpdemux -L/Users/macbookpro2022m2/Desktop/imagemagick_lib_ios/target/libwebp_arm64/lib -lwebp              -L/usr/lib -lxml2  -L/usr/lib -lz     -lm    -lpthread   -lm

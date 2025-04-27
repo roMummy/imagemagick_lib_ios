@@ -13,14 +13,16 @@ export IM_VERSION="$1"
 . $(dirname $0)/flags.sh # compiler flags
 . $(dirname $0)/utils.sh # various functions
 # Compilation scripts
-#. $(dirname $0)/compile_png.sh  # libPNG
-#. $(dirname $0)/compile_jpeg.sh # JPEG
-#. $(dirname $0)/compile_tiff.sh # TIFF
-#. $(dirname $0)/compile_freetype.sh
-#. $(dirname $0)/compile_fontconfig.sh
-#. $(dirname $0)/compile_expat.sh #
-#. $(dirname $0)/compile_gs.sh   #
-#. $(dirname $0)/compile_openjpeg.sh #
+
+# . $(dirname $0)/compile_webp.sh  # libwebp
+# . $(dirname $0)/compile_png.sh  # libPNG
+# . $(dirname $0)/compile_jpeg.sh # JPEG
+# . $(dirname $0)/compile_tiff.sh # TIFF
+# . $(dirname $0)/compile_freetype.sh
+# . $(dirname $0)/compile_fontconfig.sh
+# . $(dirname $0)/compile_expat.sh #
+# . $(dirname $0)/compile_gs.sh   #
+# # . $(dirname $0)/compile_openjpeg.sh #
 . $(dirname $0)/compile_im.sh   # ImageMagick
 
 
@@ -47,6 +49,7 @@ prepare
 
 for i in $ARCHS; do
 	png $i
+	webp $i
 	jpeg $i
 	tiff $i
     openjpeg $i

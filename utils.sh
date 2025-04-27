@@ -37,6 +37,7 @@ prepare() {
 	mkdir -p $LIB_DIR/include/jpeg
 	mkdir -p $LIB_DIR/include/magick
 	mkdir -p $LIB_DIR/include/png
+	mkdir -p $LIB_DIR/include/webp
 	mkdir -p $LIB_DIR/include/tiff
 	mkdir -p $LIB_DIR/include/wand
 	# lib directories
@@ -44,7 +45,7 @@ prepare() {
 	mkdir -p $PNG_LIB_DIR
 	mkdir -p $TIFF_LIB_DIR
 	# DYLIB directories
-	for i in "jpeg" "png" "tiff"; do
+	for i in "jpeg" "png" "tiff" "webp"; do
 		for j in $ARCHS; do
 			mkdir -p $LIB_DIR/${i}_${j}_dylib
 		done

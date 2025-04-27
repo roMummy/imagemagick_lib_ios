@@ -32,7 +32,12 @@ ghostscript () {
 #        echo "1"
         echo "[|- CONFIG $BUILDINGFOR]"
         export CC="$(xcode-select -print-path)/usr/bin/gcc" # override clang
-        try ./configure prefix=$GS_LIB_DIR --enable-shared --enable-static --disable-cups --host=arm-apple-darwin
+        try ./configure \
+        --prefix=${PNG_LIB_DIR}_${BUILDINGFOR} \
+        --enable-shared \
+        --enable-static \
+        --disable-cups  \
+        --host=arm-apple-darwin
         ghostscript_compile
         restore
     elif [ "$1" == "i386" ] || [ "$1" == "x86_64" ]; then
@@ -41,7 +46,11 @@ ghostscript () {
         echo "2"
         echo "[|- CONFIG $BUILDINGFOR]"
         export CC="$(xcode-select -print-path)/usr/bin/gcc" # override clang
-        try ./configure prefix=$ghostscript_LIB_DIR --enable-shared --enable-static --host=${BUILDINGFOR}-apple-darwin
+        try ./configure \
+        --prefix=${PNG_LIB_DIR}_${BUILDINGFOR} \
+        --enable-shared \
+        --enable-static \
+        --host=${BUILDINGFOR}-apple-darwin
         ghostscript_compile
         restore
     else
